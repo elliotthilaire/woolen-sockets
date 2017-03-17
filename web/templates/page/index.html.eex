@@ -9,7 +9,7 @@ window.onload = function() {
 
     var game = new Phaser.Game(800, 600, Phaser.AUTO, '', { preload: preload, create: create, update: update, render: render });
 
-    var logo
+    var player
     var cursors
     var player_id
 
@@ -21,8 +21,8 @@ window.onload = function() {
 
     function create () {
 
-        logo = game.add.sprite(game.world.centerX, game.world.centerY, 'logo');
-        logo.anchor.setTo(0.5, 0.5);
+        player = game.add.sprite(game.world.centerX, game.world.centerY, 'logo');
+        player.anchor.setTo(0.5, 0.5);
 
         cursors = game.input.keyboard.createCursorKeys();
         player_id = Math.floor(Math.random() * 1000).toString();
@@ -32,25 +32,25 @@ window.onload = function() {
     function update () {
 
         if (cursors.left.isDown) {
-            logo.x -= 4;
+            player.x -= 4;
         }
         else if (cursors.right.isDown) {
-            logo.x += 4;
+            player.x += 4;
         }
 
         if (cursors.up.isDown) {
-            logo.y -= 4;
+            player.y -= 4;
         }
         else if (cursors.down.isDown) {
-           logo.y += 4;
+           player.y += 4;
         }
 
-        channel.push("new_position", { player: player_id, position: { x: logo.x, y: logo.y }});
+        channel.push("new_position", { player: player_id, position: { x: player.x, y: player.y }});
     }
 
     function render () {
 
-      game.debug.spriteInfo(logo, 32, 32);
+      game.debug.spriteInfo(player, 32, 32);
 
     }
 
