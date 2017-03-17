@@ -24,9 +24,11 @@ window.onload = function() {
         logo.anchor.setTo(0.5, 0.5);
 
         cursors = game.input.keyboard.createCursorKeys();
+
     }
 
     function update () {
+
         if (cursors.left.isDown) {
             logo.x -= 4;
         }
@@ -40,6 +42,8 @@ window.onload = function() {
         else if (cursors.down.isDown) {
            logo.y += 4;
         }
+
+        channel.push("new_position", { player: 'Player1', position: { x: logo.x, y: logo.y }});
     }
 
     function render () {
