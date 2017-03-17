@@ -19,11 +19,11 @@ defmodule PhoenixPhaser.RoomChannel do
     PhoenixPhaser.GameState.put(player, %{x: x, y: y})
 
     new_player = %{player_id: player, position: %{x: x, y: y}}
-    world = PhoenixPhaser.GameState.get
-    IO.inspect(new_player)
-
     broadcast! socket, "new_player_joined", new_player
-    broadcast! socket, "hello_world", world
+
+    world = PhoenixPhaser.GameState.get
+    push socket, "hello_world", world
+
     {:noreply, socket}
   end
 

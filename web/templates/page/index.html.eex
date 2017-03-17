@@ -58,7 +58,8 @@ window.onload = function() {
           }
         })
 
-        channel.push("new_position", { player: player_id, position: { x: player.x, y: player.y }});
+        channel.push("new_position", { player: player_id, position: { x: player.x, y: player.y }})
+
     }
 
     function render () {
