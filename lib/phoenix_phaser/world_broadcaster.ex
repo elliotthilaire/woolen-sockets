@@ -10,11 +10,10 @@ defmodule PhoenixPhaser.WorldBroadcaster do
 
     unless Map.equal?(world, new_world) do
       IO.inspect(new_world)
-      IO.inspect(world)
       PhoenixPhaser.Endpoint.broadcast!("room:lobby", "update_world", new_world)
     end
 
-    Process.sleep(10)
+    Process.sleep(16)
     broadcast_world(new_world)
   end
 
