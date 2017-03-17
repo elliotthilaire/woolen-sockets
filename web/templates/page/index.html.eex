@@ -1,10 +1,10 @@
-<script src="//cdn.jsdelivr.net/phaser/2.6.2/phaser.min.js"></script>
+<script src="//cdn.jsdelivr.net/phaser-ce/2.7.3/phaser.min.js"></script>
 
 <script type="text/javascript">
 
 window.onload = function() {
 
-    var game = new Phaser.Game(800, 600, Phaser.AUTO, '', { preload: preload, create: create });
+    var game = new Phaser.Game(800, 600, Phaser.AUTO, '', { preload: preload, create: create, update: update });
 
     function preload () {
 
@@ -12,10 +12,35 @@ window.onload = function() {
 
     }
 
+    var logo
+    var cursors
+
+
     function create () {
 
-        var logo = game.add.sprite(game.world.centerX, game.world.centerY, 'logo');
+        logo = game.add.sprite(game.world.centerX, game.world.centerY, 'logo');
         logo.anchor.setTo(0.5, 0.5);
+
+        cursors = game.input.keyboard.createCursorKeys();
+    }
+
+    function update () {
+        if (cursors.left.isDown) {
+            logo.x -= 4;
+        }
+        else if (cursors.right.isDown) {
+            logo.x += 4;
+        }
+
+        if (cursors.up.isDown){
+            logo.y -= 4;
+        } else if (cursors.down.isDown) {
+           logo.y += 4;
+        }
+
+    }
+
+    function render () {
 
     }
 
