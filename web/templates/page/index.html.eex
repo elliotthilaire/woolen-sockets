@@ -11,6 +11,7 @@ window.onload = function() {
 
     var logo
     var cursors
+    var player_id
 
     function preload () {
 
@@ -24,6 +25,7 @@ window.onload = function() {
         logo.anchor.setTo(0.5, 0.5);
 
         cursors = game.input.keyboard.createCursorKeys();
+        player_id = Math.floor(Math.random() * 1000).toString();
 
     }
 
@@ -43,7 +45,7 @@ window.onload = function() {
            logo.y += 4;
         }
 
-        channel.push("new_position", { player: 'Player1', position: { x: logo.x, y: logo.y }});
+        channel.push("new_position", { player: player_id, position: { x: logo.x, y: logo.y }});
     }
 
     function render () {
