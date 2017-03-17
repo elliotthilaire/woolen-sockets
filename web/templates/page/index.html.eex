@@ -9,6 +9,7 @@ window.onload = function() {
     var player
     var cursors
     var player_id
+    var player_id_int
 
     var other_players = []
     var world_state = {}
@@ -27,7 +28,8 @@ window.onload = function() {
         player.anchor.setTo(0.5, 0.5);
 
         cursors = game.input.keyboard.createCursorKeys();
-        player_id = Math.floor(Math.random() * 1000).toString();
+        player_id_int = Math.floor(Math.random() * 1000)
+        player_id = player_id_int.toString()
 
         channel.push("im_new_here", { player: player_id , position: { x: player.x, y: player.y }})
 
@@ -58,8 +60,12 @@ window.onload = function() {
           }
         })
 
-        channel.push("new_position", { player: player_id, position: { x: player.x, y: player.y }})
-
+        if (player_id_int in world_state) {
+          if (world_state[player_id_int].x != player.x ||
+                  world_state[player_id_int].y != player.y ) {
+            channel.push("new_position", { player: player_id, position: { x: player.x, y: player.y }})
+          }
+        }
     }
 
     function render () {
