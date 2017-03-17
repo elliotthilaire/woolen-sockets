@@ -4,12 +4,12 @@ defmodule PhoenixPhaser.GameState do
     Agent.start_link(fn -> %{} end, name: __MODULE__)
   end
 
-  def put(key, value) do
-    Agent.update(__MODULE__, &Map.put(&1, key, value))
+  def put(player, position = %{x: _x, y: _y}) do
+    Agent.update(__MODULE__, &Map.put(&1, player, position))
   end
 
-  def get(key) do
-    Agent.get(__MODULE__, &Map.get(&1, key))
+  def get(player) do
+    Agent.get(__MODULE__, &Map.get(&1, player))
   end
 
   def get do
