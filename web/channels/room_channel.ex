@@ -11,14 +11,13 @@ defmodule PhoenixPhaser.RoomChannel do
 
   def handle_in("new_position", %{"player" => player, "position" => %{"x" => x, "y" => y}}, socket) do
     PhoenixPhaser.GameState.put(player, %{x: x, y: y})
-    world = PhoenixPhaser.GameState.get
 
-    broadcast! socket, "update_world", world
     {:noreply, socket}
   end
 
   def handle_in("im_new_here", %{"player" => player, "position" => %{"x" => x, "y" => y}}, socket) do
     PhoenixPhaser.GameState.put(player, %{x: x, y: y})
+
     new_player = %{player_id: player, position: %{x: x, y: y}}
     world = PhoenixPhaser.GameState.get
     IO.inspect(new_player)
