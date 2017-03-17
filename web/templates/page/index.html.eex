@@ -9,6 +9,7 @@ window.onload = function() {
     var player
     var cursors
     var player_id
+    var other_players = []
 
     function preload () {
 
@@ -24,6 +25,7 @@ window.onload = function() {
         cursors = game.input.keyboard.createCursorKeys();
         player_id = Math.floor(Math.random() * 1000).toString();
 
+        channel.push("new_player", { player: player_id , position: { x: player.x, y: player.y }});
     }
 
     function update () {
@@ -55,6 +57,17 @@ window.onload = function() {
       console.log(payload)
       logo.x = payload.x
       logo.y = payload.y
+
+    channel.on("new_player", payload => {
+      console.log("New player: ", payload)
+
+      var player_id = payload.player_id;
+      var position = payload.position
+
+      new_player = game.add.sprite(position.x + 100, position.y + 100, 'sheep_1')
+      new_player = player.anchor.setTo(0.5, 0.5);
+
+      other_players.push(new_player)
     })
 
 };
