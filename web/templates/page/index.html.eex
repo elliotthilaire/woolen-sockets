@@ -1,5 +1,8 @@
 <script src="//cdn.jsdelivr.net/phaser-ce/2.7.3/phaser.min.js"></script>
 
+<div id="messages"></div>
+<input id="chat-input" type="text"></input>
+
 <script type="text/javascript">
 
 window.onload = function() {
