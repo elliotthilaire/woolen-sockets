@@ -53,7 +53,7 @@ let socket = new Socket("/socket", {params: {token: window.userToken}})
 
 socket.connect()
 
-let channel           = socket.channel("room:lobby", {})
+let channel = socket.channel("room:lobby", {})
 
 // Now that you are connected, you can join channels with a topic:
 channel.join()
