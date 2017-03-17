@@ -65,7 +65,7 @@ window.onload = function() {
       var position = payload.position
 
       new_player = game.add.sprite(position.x + 100, position.y + 100, 'sheep_1')
-      new_player = player.anchor.setTo(0.5, 0.5);
+      new_player = new_player.anchor.setTo(0.5, 0.5);
 
       other_players.push(new_player)
     })
