@@ -12,13 +12,13 @@ window.onload = function() {
 
     function preload () {
 
-        game.load.image('logo', 'images/phoenix.png');
+        game.load.image('sheep_1', 'images/sheep_1.png');
 
     }
 
     function create () {
 
-        player = game.add.sprite(game.world.centerX, game.world.centerY, 'logo');
+        player = game.add.sprite(game.world.centerX, game.world.centerY, 'sheep_1');
         player.anchor.setTo(0.5, 0.5);
 
         cursors = game.input.keyboard.createCursorKeys();
