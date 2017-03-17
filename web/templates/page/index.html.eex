@@ -52,6 +52,12 @@ window.onload = function() {
 
     }
 
+    channel.on("update_world", payload => {
+      console.log(payload)
+      logo.x = payload.x
+      logo.y = payload.y
+    })
+
 };
 
 </script>

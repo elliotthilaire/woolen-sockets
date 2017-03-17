@@ -22,7 +22,7 @@ defmodule PhoenixPhaser.RoomChannel do
   def handle_in("new_position", %{"player" => player, "position" => %{"x" => x, "y" => y}}, socket) do
     PhoenixPhaser.GameState.put(player, %{x: x, y: y})
 
-    # broadcast! socket, "new_msg", %{body: body}
+    broadcast_from socket, "update_world", %{ x: x, y: y}
     {:noreply, socket}
   end
 end
