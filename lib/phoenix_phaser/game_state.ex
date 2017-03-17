@@ -8,12 +8,7 @@ defmodule PhoenixPhaser.GameState do
     Agent.update(__MODULE__, &Map.put(&1, player, position))
   end
 
-  def get(player) do
-    Agent.get(__MODULE__, &Map.get(&1, player))
-  end
-
   def get do
     Agent.get(__MODULE__, &(&1))
   end
-
 end
