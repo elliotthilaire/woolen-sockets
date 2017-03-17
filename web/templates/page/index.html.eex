@@ -4,7 +4,7 @@
 
 window.onload = function() {
 
-    var game = new Phaser.Game(800, 600, Phaser.AUTO, '', { preload: preload, create: create, update: update });
+    var game = new Phaser.Game(800, 600, Phaser.AUTO, '', { preload: preload, create: create, update: update, render: render });
 
     function preload () {
 
@@ -14,7 +14,6 @@ window.onload = function() {
 
     var logo
     var cursors
-
 
     function create () {
 
@@ -37,10 +36,11 @@ window.onload = function() {
         } else if (cursors.down.isDown) {
            logo.y += 4;
         }
-
     }
 
     function render () {
+
+      game.debug.spriteInfo(logo, 32, 32);
 
     }
 
