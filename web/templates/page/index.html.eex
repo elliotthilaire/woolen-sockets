@@ -6,14 +6,14 @@ window.onload = function() {
 
     var game = new Phaser.Game(800, 600, Phaser.AUTO, '', { preload: preload, create: create, update: update, render: render });
 
+    var logo
+    var cursors
+
     function preload () {
 
         game.load.image('logo', 'images/phoenix.png');
 
     }
-
-    var logo
-    var cursors
 
     function create () {
 
@@ -31,9 +31,10 @@ window.onload = function() {
             logo.x += 4;
         }
 
-        if (cursors.up.isDown){
+        if (cursors.up.isDown) {
             logo.y -= 4;
-        } else if (cursors.down.isDown) {
+        }
+        else if (cursors.down.isDown) {
            logo.y += 4;
         }
     }
