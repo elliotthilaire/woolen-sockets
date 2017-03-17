@@ -19,6 +19,8 @@ window.onload = function() {
 
     function create () {
 
+        game.stage.disableVisibilityChange = true;
+
         player = game.add.sprite(game.world.centerX, game.world.centerY, 'sheep_1');
         player.anchor.setTo(0.5, 0.5);
 
