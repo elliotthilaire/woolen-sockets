@@ -13,7 +13,7 @@ defmodule PhoenixPhaser do
       # Start the endpoint when the application starts
       supervisor(PhoenixPhaser.Endpoint, []),
       # Start your own worker by calling: PhoenixPhaser.Worker.start_link(arg1, arg2, arg3)
-      # worker(PhoenixPhaser.Worker, [arg1, arg2, arg3]),
+      worker(PhoenixPhaser.GameState, []),
     ]
 
     # See http://elixir-lang.org/docs/stable/elixir/Supervisor.html
