@@ -24,8 +24,6 @@ window.onload = function() {
 
     function create () {
 
-        game.stage.disableVisibilityChange = true;
-
         enemies = game.add.group()
 
         player = game.add.sprite(game.world.centerX, game.world.centerY, 'sheep_1');
