@@ -1,17 +1,13 @@
 defmodule PhoenixPhaser.WorldBroadcaster do
   use GenServer
 
-  # 16 milliseconds is (60fps)
-  @delay_time 16
-
   def start_link do
-    GenServer.start_link(__MODULE__, %{})
+    GenServer.start_link(__MODULE__, %{}, name: __MODULE__)
   end
 
-  def init(_state) do
+  def init(_args) do
     world = PhoenixPhaser.GameState.get
-
-    Process.send_after(self(), :work, @delay_time)
+    schedule_work()
     {:ok, world}
   end
 
@@ -23,9 +19,12 @@ defmodule PhoenixPhaser.WorldBroadcaster do
       PhoenixPhaser.Endpoint.broadcast!("room:lobby", "update_world", new_world)
     end
 
-    # Start the timer again
-    Process.send_after(self(), :work, @delay_time)
+    schedule_work()
 
     {:noreply, new_world}
+  end
+
+  defp schedule_work() do
+    Process.send_after(self(), :work, 16)
   end
 end
