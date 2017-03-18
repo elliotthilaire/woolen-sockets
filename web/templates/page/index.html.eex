@@ -14,7 +14,7 @@ window.onload = function() {
     var enemies
 
     var other_players = []
-    var world_state = {}
+    var world_state = { players: {} }
 
     function preload () {
 
@@ -34,7 +34,7 @@ window.onload = function() {
         player_id_int = Math.floor(Math.random() * 1000)
         player_id = player_id_int.toString()
 
-        channel.push("im_new_here", { player: player_id , position: { x: player.x, y: player.y }})
+        channel.push("im_new_here", { player_id: player_id, position: { x: player.x, y: player.y }})
 
     }
 
@@ -57,19 +57,19 @@ window.onload = function() {
         other_players.forEach(function(other_player) {
           var other_player_id = parseInt(other_player.player_id);
 
-          if (other_player_id in world_state) {
-            other_player.game_object.x = world_state[other_player_id].x
-            other_player.game_object.y = world_state[other_player_id].y
+          if (other_player_id in world_state.players) {
+            other_player.game_object.x = world_state.players[other_player_id].position.x
+            other_player.game_object.y = world_state.players[other_player_id].position.y
           }
         })
 
-        if (player_id_int in world_state) {
-          if (world_state[player_id_int].x != player.x ||
-                  world_state[player_id_int].y != player.y ) {
-            channel.push("new_position", { player: player_id, position: { x: player.x, y: player.y }})
+        if (player_id_int in world_state.players) {
+          if (world_state.players[player_id_int].position.x != player.x ||
+                  world_state.players[player_id_int].position.y != player.y ) {
+            channel.push("new_position", { player_id: player_id, position: { x: player.x, y: player.y }})
           }
         }
-        
+
     }
 
     channel.on("update_world", payload => {
@@ -92,15 +92,15 @@ window.onload = function() {
 
     channel.on("hello_world", payload => {
 
-      Object.keys(payload).forEach(function(key) {
-        if (key == player_id_int) { return }
+      Object.keys(payload.players).forEach(function(other_player_id) {
+        if (other_player_id == player_id_int) { return }
 
-        var new_player = game.add.sprite(payload[key].x, payload[key].y, 'sheep_1')
+        var new_player = game.add.sprite(payload.players[other_player_id].position.x, payload.players[other_player_id].position.y, 'sheep_1')
         new_player.anchor.setTo(0.5, 0.5);
 
         enemies.add(new_player)
 
-        other_players.push({player_id: key, game_object: new_player})
+        other_players.push({player_id: other_player_id, game_object: new_player})
       })
 
     })
