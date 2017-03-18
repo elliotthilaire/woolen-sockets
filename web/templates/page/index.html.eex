@@ -89,6 +89,8 @@ window.onload = function() {
     channel.on("hello_world", payload => {
 
       Object.keys(payload).forEach(function(key) {
+        if (key == player_id_int) { return }
+
         var new_player = game.add.sprite(payload[key].x, payload[key].y, 'sheep_1')
         new_player.anchor.setTo(0.5, 0.5);
 
