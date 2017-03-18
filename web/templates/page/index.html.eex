@@ -24,12 +24,13 @@ window.onload = function() {
 
     function create () {
 
+        cursors = game.input.keyboard.createCursorKeys()
+
         enemies = game.add.group()
 
         player = game.add.sprite(game.world.centerX, game.world.centerY, 'sheep_1');
         player.anchor.setTo(0.5, 0.5);
 
-        cursors = game.input.keyboard.createCursorKeys();
         player_id_int = Math.floor(Math.random() * 1000)
         player_id = player_id_int.toString()
 
@@ -68,6 +69,7 @@ window.onload = function() {
             channel.push("new_position", { player: player_id, position: { x: player.x, y: player.y }})
           }
         }
+        
     }
 
     channel.on("update_world", payload => {
