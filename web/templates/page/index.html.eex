@@ -4,7 +4,7 @@
 
 window.onload = function() {
 
-    var game = new Phaser.Game(800, 600, Phaser.AUTO, '', { preload: preload, create: create, update: update, render: render });
+    var game = new Phaser.Game(800, 600, Phaser.AUTO, '', { preload: preload, create: create, update: update });
 
     var player
     var cursors
@@ -66,12 +66,6 @@ window.onload = function() {
             channel.push("new_position", { player: player_id, position: { x: player.x, y: player.y }})
           }
         }
-    }
-
-    function render () {
-
-      game.debug.spriteInfo(player, 32, 32);
-
     }
 
     channel.on("update_world", payload => {
