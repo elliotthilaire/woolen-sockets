@@ -11,6 +11,8 @@ window.onload = function() {
     var player_id
     var player_id_int
 
+    var enemies
+
     var other_players = []
     var world_state = {}
 
@@ -23,6 +25,8 @@ window.onload = function() {
     function create () {
 
         game.stage.disableVisibilityChange = true;
+
+        enemies = game.add.group()
 
         player = game.add.sprite(game.world.centerX, game.world.centerY, 'sheep_1');
         player.anchor.setTo(0.5, 0.5);
@@ -93,6 +97,8 @@ window.onload = function() {
 
         var new_player = game.add.sprite(payload[key].x, payload[key].y, 'sheep_1')
         new_player.anchor.setTo(0.5, 0.5);
+
+        enemies.add(new_player)
 
         other_players.push({player_id: key, game_object: new_player})
       })
