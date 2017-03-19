@@ -60,6 +60,12 @@ window.onload = function() {
           player.body.velocity.y = 300
         }
 
+        if (player.body.velocity.x > 0) {
+          player.scale.x = 1
+        } else if (player.body.velocity.x < 0) {
+          player.scale.x = -1
+        }
+
         other_players.forEach(function(other_player) {
           var other_player_id = parseInt(other_player.player_id);
 
@@ -69,6 +75,13 @@ window.onload = function() {
 
             other_player.game_object.body.velocity.x = world_state.players[other_player_id].velocity.x
             other_player.game_object.body.velocity.y = world_state.players[other_player_id].velocity.y
+
+            if (other_player.game_object.body.velocity.x > 0) {
+              other_player.game_object.scale.x = 1
+            } else if (other_player.game_object.body.velocity.x < 0) {
+              other_player.game_object.scale.x = -1
+            }
+
           }
         })
 
