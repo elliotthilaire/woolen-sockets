@@ -20,6 +20,8 @@ window.onload = function() {
 
     function create () {
 
+        game.physics.startSystem(Phaser.Physics.ARCADE);
+
         cursors = game.input.keyboard.createCursorKeys()
 
         enemies = game.add.group()
@@ -27,27 +29,35 @@ window.onload = function() {
         player = game.add.sprite(game.world.centerX, game.world.centerY, 'sheep_1');
         player.anchor.setTo(0.5, 0.5);
 
+        game.physics.enable(player, Phaser.Physics.ARCADE);
+
         player_id_int = Math.floor(Math.random() * 1000)
         player_id = player_id_int.toString()
 
-        channel.push("im_new_here", { player_id: player_id, position: { x: player.x, y: player.y }})
+        channel.push("im_new_here", { player_id: player_id,
+                                       position: { x: player.x, y: player.y },
+                                       velocity: { x: player.body.velocity.x, y: player.body.velocity.y }
+                                    })
 
     }
 
     function update () {
 
+        player.body.velocity.x = 0
+        player.body.velocity.y = 0
+
         if (cursors.left.isDown) {
-            player.x -= 4;
+          player.body.velocity.x = -300
         }
         else if (cursors.right.isDown) {
-            player.x += 4;
+          player.body.velocity.x = 300
         }
 
         if (cursors.up.isDown) {
-            player.y -= 4;
+          player.body.velocity.y = -300
         }
         else if (cursors.down.isDown) {
-           player.y += 4;
+          player.body.velocity.y = 300
         }
 
         other_players.forEach(function(other_player) {
@@ -62,7 +72,10 @@ window.onload = function() {
         if (player_id_int in world_state.players) {
           if (world_state.players[player_id_int].position.x != player.x ||
                   world_state.players[player_id_int].position.y != player.y ) {
-            channel.push("new_position", { player_id: player_id, position: { x: player.x, y: player.y }})
+            channel.push("new_position", { player_id: player_id,
+                                           position: { x: player.x, y: player.y },
+                                           velocity: { x: player.body.velocity.x, y: player.body.velocity.y }
+                                         })
           }
         }
 

@@ -10,15 +10,17 @@ defmodule PhoenixPhaser.GameState do
 
   def add_player(%{player_id: player_id}) do
     Agent.update(__MODULE__, fn world ->
-      put_in(world, [:players, to_string(player_id)], %{position: %{}})
+      put_in(world, [:players, to_string(player_id)], %{position: %{}, velocity: %{}})
     end)
   end
 
   # PhoenixPhaser.GameState.update_player(%{player_id: 1, position: %{x: 1, y: 2}})
 
-  def update_player(%{player_id: player_id, position: position}) do
+  def update_player(%{player_id: player_id, position: position, velocity: velocity}) do
     Agent.update(__MODULE__, fn world ->
-      put_in(world, [:players, to_string(player_id), :position], position)
+      world
+      |> put_in([:players, to_string(player_id), :position], position)
+      |> put_in([:players, to_string(player_id), :velocity], velocity)
     end)
   end
 
