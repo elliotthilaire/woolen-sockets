@@ -66,6 +66,9 @@ window.onload = function() {
           if (other_player_id in world_state.players) {
             other_player.game_object.x = world_state.players[other_player_id].position.x
             other_player.game_object.y = world_state.players[other_player_id].position.y
+
+            other_player.game_object.body.velocity.x = world_state.players[other_player_id].velocity.x
+            other_player.game_object.body.velocity.y = world_state.players[other_player_id].velocity.y
           }
         })
 
@@ -94,6 +97,7 @@ window.onload = function() {
 
       var new_player = game.add.sprite(position.x, position.y, 'sheep_1')
       new_player.anchor.setTo(0.5, 0.5)
+      game.physics.enable(new_player, Phaser.Physics.ARCADE);
 
       other_players.push({player_id: other_player_id, game_object: new_player})
 
@@ -106,6 +110,7 @@ window.onload = function() {
 
         var new_player = game.add.sprite(payload.players[other_player_id].position.x, payload.players[other_player_id].position.y, 'sheep_1')
         new_player.anchor.setTo(0.5, 0.5);
+        game.physics.enable(new_player, Phaser.Physics.ARCADE);
 
         enemies.add(new_player)
 
