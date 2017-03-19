@@ -3,3 +3,8 @@
 #phaser-game canvas {
   margin:auto;
 }
+
+
+body {
+  background-color: black;
+}

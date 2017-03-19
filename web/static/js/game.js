@@ -14,11 +14,17 @@ window.onload = function() {
 
     function preload () {
 
-        game.load.image('sheep_1', 'images/sheep_1.png');
+        game.load.image('sheep_1', 'images/sheep_1.png')
+        game.load.image('field', 'images/field.jpg')
+
 
     }
 
     function create () {
+
+        var bg = game.add.sprite(0, 0, 'field');
+        bg.scale.x = 0.5
+        bg.scale.y = 0.5
 
         game.physics.startSystem(Phaser.Physics.ARCADE);
 
