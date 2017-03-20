@@ -72,24 +72,7 @@ window.onload = function() {
           player.scale.x = -1
         }
 
-        other_players.forEach(function(other_player) {
-          var other_player_id = parseInt(other_player.player_id);
 
-          if (other_player_id in world_state.players) {
-            other_player.game_object.x = world_state.players[other_player_id].position.x
-            other_player.game_object.y = world_state.players[other_player_id].position.y
-
-            other_player.game_object.body.velocity.x = world_state.players[other_player_id].velocity.x
-            other_player.game_object.body.velocity.y = world_state.players[other_player_id].velocity.y
-
-            if (other_player.game_object.body.velocity.x > 0) {
-              other_player.game_object.scale.x = 1
-            } else if (other_player.game_object.body.velocity.x < 0) {
-              other_player.game_object.scale.x = -1
-            }
-
-          }
-        })
 
         if (player_id_int in world_state.players) {
           if (world_state.players[player_id_int].position.x != player.x ||
@@ -106,6 +89,25 @@ window.onload = function() {
     channel.on("update_world", payload => {
 
       world_state = payload
+
+      other_players.forEach(function(other_player) {
+        var other_player_id = parseInt(other_player.player_id);
+
+        if (other_player_id in payload.players) {
+          other_player.game_object.x = payload.players[other_player_id].position.x
+          other_player.game_object.y = payload.players[other_player_id].position.y
+
+          other_player.game_object.body.velocity.x = payload.players[other_player_id].velocity.x
+          other_player.game_object.body.velocity.y = payload.players[other_player_id].velocity.y
+
+          if (other_player.game_object.body.velocity.x > 0) {
+            other_player.game_object.scale.x = 1
+          } else if (other_player.game_object.body.velocity.x < 0) {
+            other_player.game_object.scale.x = -1
+          }
+
+        }
+      })
 
     })
 
