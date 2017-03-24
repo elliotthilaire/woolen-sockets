@@ -17,7 +17,6 @@ window.onload = function() {
         game.load.image('sheep_1', 'images/sheep_1.png')
         game.load.image('field', 'images/field.jpg')
 
-
     }
 
     function create () {
@@ -25,17 +24,21 @@ window.onload = function() {
         // add background
         game.add.sprite(0, 0, 'field');
 
+        // start physics used for storing sheep velocity
         game.physics.startSystem(Phaser.Physics.ARCADE);
 
+        // enable keyboard control via arrow keys
         cursors = game.input.keyboard.createCursorKeys()
 
+        // create enemies groups before player
         enemies = game.add.group()
 
+        // add player after enemy so it displays on top
         player = game.add.sprite(game.world.centerX, game.world.centerY, 'sheep_1');
         player.anchor.setTo(0.5, 0.5);
-
         game.physics.enable(player, Phaser.Physics.ARCADE);
 
+        // create a random number for id
         player_id_int = Math.floor(Math.random() * 1000)
         player_id = player_id_int.toString()
 
@@ -48,9 +51,11 @@ window.onload = function() {
 
     function update () {
 
+        // reset velocity to zero by override in based on input
         player.body.velocity.x = 0
         player.body.velocity.y = 0
 
+        // set velocity based on keyboard input
         if (cursors.left.isDown) {
           player.body.velocity.x = -300
         }
@@ -65,14 +70,14 @@ window.onload = function() {
           player.body.velocity.y = 300
         }
 
+        // make sprite face correct direction
         if (player.body.velocity.x > 0) {
           player.scale.x = 1
         } else if (player.body.velocity.x < 0) {
           player.scale.x = -1
         }
 
-
-
+        // send details to game server
         if (player_id_int in world_state.players) {
           if (world_state.players[player_id_int].position.x != player.x ||
                   world_state.players[player_id_int].position.y != player.y ) {
@@ -87,8 +92,10 @@ window.onload = function() {
 
     channel.on("update_world", payload => {
 
+      // save the state of the world
       world_state = payload
 
+      // update other_players with most recent world information
       other_players.forEach(function(other_player) {
         var other_player_id = parseInt(other_player.player_id);
 
@@ -110,8 +117,8 @@ window.onload = function() {
 
     })
 
+    // add a new player to the game
     channel.on("new_player_joined", payload => {
-
       var other_player_id = payload.player_id
       var position = payload.position
 
@@ -123,6 +130,7 @@ window.onload = function() {
 
     })
 
+    // show already existing players
     channel.on("hello_world", payload => {
 
       Object.keys(payload.players).forEach(function(other_player_id) {
@@ -139,6 +147,7 @@ window.onload = function() {
 
     })
 
+    // remove a player when they leave
     channel.on("player_left", payload => {
 
       other_players = other_players.filter(function( player ) {
