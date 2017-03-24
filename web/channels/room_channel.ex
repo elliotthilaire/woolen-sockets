@@ -25,7 +25,17 @@ defmodule PhoenixPhaser.RoomChannel do
     world = PhoenixPhaser.GameState.get_world
     push socket, "hello_world", world
 
+    socket = assign(socket, :player_id, player_id)
+
     {:noreply, socket}
   end
 
+  def terminate(_reason, socket) do
+    player_id = socket.assigns[:player_id]
+
+    PhoenixPhaser.GameState.remove_player(%{player_id: player_id})
+    broadcast_from socket, "player_left", %{player_id: player_id}
+
+    {:noreply, socket}
+  end
 end

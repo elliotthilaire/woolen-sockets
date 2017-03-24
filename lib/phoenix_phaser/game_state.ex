@@ -14,6 +14,16 @@ defmodule PhoenixPhaser.GameState do
     end)
   end
 
+  # PhoenixPhaser.GameState.remove_player(%{player_id: 1})
+
+  def remove_player(%{player_id: player_id}) do
+    Agent.update(__MODULE__, fn world ->
+      update_in(world, [:players], fn players ->
+        Map.delete(players, to_string(player_id))
+      end)
+    end)
+  end
+
   # PhoenixPhaser.GameState.update_player(%{player_id: 1, position: %{x: 1, y: 2}})
 
   def update_player(%{player_id: player_id, position: position, velocity: velocity}) do

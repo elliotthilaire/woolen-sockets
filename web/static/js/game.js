@@ -138,4 +138,15 @@ window.onload = function() {
 
     })
 
+    channel.on("player_left", payload => {
+
+      other_players = other_players.filter(function( player ) {
+        if (player.player_id == payload.player_id){
+          player.game_object.destroy()
+        }
+        return player.player_id !== payload.player_id;
+      });
+
+    })
+
 };
