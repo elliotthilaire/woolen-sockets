@@ -5,7 +5,6 @@ window.onload = function() {
     var player
     var cursors
     var player_id
-    var player_id_int
 
     var enemies
 
@@ -39,8 +38,7 @@ window.onload = function() {
         game.physics.enable(player, Phaser.Physics.ARCADE);
 
         // create a random number for id
-        player_id_int = Math.floor(Math.random() * 1000)
-        player_id = player_id_int.toString()
+        player_id = Math.floor(Math.random() * 1000)
 
         channel.push("im_new_here", { player_id: player_id,
                                        position: { x: player.x, y: player.y },
@@ -78,9 +76,9 @@ window.onload = function() {
         }
 
         // send details to game server
-        if (player_id_int in world_state.players) {
-          if (world_state.players[player_id_int].position.x != player.x ||
-                  world_state.players[player_id_int].position.y != player.y ) {
+        if (player_id in world_state.players) {
+          if (world_state.players[player_id].position.x != player.x ||
+                  world_state.players[player_id].position.y != player.y ) {
             channel.push("new_position", { player_id: player_id,
                                            position: { x: player.x, y: player.y },
                                            velocity: { x: player.body.velocity.x, y: player.body.velocity.y }
@@ -97,7 +95,7 @@ window.onload = function() {
 
       // update other_players with most recent world information
       other_players.forEach(function(other_player) {
-        var other_player_id = parseInt(other_player.player_id);
+        var other_player_id = other_player.player_id
 
         if (other_player_id in payload.players) {
           other_player.game_object.x = payload.players[other_player_id].position.x
@@ -134,7 +132,7 @@ window.onload = function() {
     channel.on("hello_world", payload => {
 
       Object.keys(payload.players).forEach(function(other_player_id) {
-        if (other_player_id == player_id_int) { return }
+        if (other_player_id == player_id) { return }
 
         var new_player = game.add.sprite(payload.players[other_player_id].position.x, payload.players[other_player_id].position.y, 'sheep_1')
         new_player.anchor.setTo(0.5, 0.5);
