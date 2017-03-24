@@ -22,9 +22,8 @@ window.onload = function() {
 
     function create () {
 
-        var bg = game.add.sprite(0, 0, 'field');
-        bg.scale.x = 0.5
-        bg.scale.y = 0.5
+        // add background
+        game.add.sprite(0, 0, 'field');
 
         game.physics.startSystem(Phaser.Physics.ARCADE);
 
