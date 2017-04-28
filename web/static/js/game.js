@@ -17,6 +17,10 @@ window.onload = function() {
         game.load.image('sheep_1', 'images/sheep_1.png')
         game.load.image('field', 'images/field.jpg')
 
+        // show all on page without scroll bar
+        game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
+        game.scale.windowConstraints.bottom = "visual";
+
     }
 
     function create () {
