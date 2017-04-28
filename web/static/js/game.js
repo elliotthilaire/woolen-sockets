@@ -30,6 +30,9 @@ window.onload = function() {
         // enable keyboard control via arrow keys
         cursors = game.input.keyboard.createCursorKeys()
 
+        // limit to one pointer object
+        game.input.maxPointers = 1
+
         // create enemies groups before player
         enemies = game.add.group()
 
