@@ -62,7 +62,7 @@ window.onload = function() {
         player.body.velocity.y = 0
 
         if (game.physics.arcade.distanceToPointer(player) > 10) {
-          game.physics.arcade.moveToPointer(player, 150)
+          game.physics.arcade.moveToPointer(player, 300)
         }
 
         // set velocity based on keyboard input
