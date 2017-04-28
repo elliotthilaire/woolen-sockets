@@ -54,6 +54,11 @@ window.onload = function() {
         player.body.velocity.x = 0
         player.body.velocity.y = 0
 
+        if (game.input.mousePointer.isDown)
+        {
+            game.physics.arcade.moveToPointer(player, 150)
+        }
+
         // set velocity based on keyboard input
         if (cursors.left.isDown) {
           player.body.velocity.x = -300
