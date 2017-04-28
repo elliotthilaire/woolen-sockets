@@ -3,8 +3,9 @@ window.onload = function() {
     var game = new Phaser.Game(800, 600, Phaser.AUTO, 'phaser-game', { preload: preload, create: create, update: update });
 
     var player
-    var cursors
     var player_id
+
+    var cursors
 
     var enemies
 
