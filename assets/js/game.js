@@ -104,7 +104,7 @@ window.onload = function() {
 
     // add a new player to the game
     channel.on("new_player_joined", payload => {
-      var other_player_id = payload.player_id
+      var other_player_id = payload.id
       var position = payload.position
 
       var new_player = game.add.sprite(position.x, position.y, 'sheep_1')
@@ -133,8 +133,8 @@ window.onload = function() {
     })
 
     // remove a player when they leave
-    channel.on("player_left", player_id => {
-      remove_from_game(player_id)
+    channel.on("player_left", payload => {
+      remove_from_game(payload.player_id)
     })
 
     // remove from phaser and from other_players array
