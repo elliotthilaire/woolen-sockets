@@ -10,14 +10,25 @@ defmodule WoolenSocketsWeb.RoomChannel do
   end
 
   def handle_in("new_position", %{"player_id" => player_id, "position" => %{"x" => px, "y" => py}, "velocity" => %{"x" => vx, "y" => vy}}, socket) do
-    WoolenSockets.GameState.update_player(%{player_id: player_id, position: %{x: px, y: py}, velocity: %{x: vx, y: vy}})
+    player = %Player{
+      id: player_id,
+      position: %Position{x: px, y: py},
+      velocity: %Velocity{x: vx, y: vy}
+    }
+
+    WoolenSockets.GameState.update_player(player)
 
     {:noreply, socket}
   end
 
   def handle_in("im_new_here",  %{"player_id" => player_id, "position" => %{"x" => px, "y" => py}, "velocity" => %{"x" => vx, "y" => vy}}, socket) do
-    WoolenSockets.GameState.add_player(%{player_id: player_id})
-    WoolenSockets.GameState.update_player(%{player_id: player_id, position: %{x: px, y: py}, velocity: %{x: vx, y: vy}})
+    player = %Player{
+      id: player_id,
+      position: %Position{x: px, y: py},
+      velocity: %Velocity{x: vx, y: vy}
+    }
+
+    WoolenSockets.GameState.add_player(player)
 
     new_player = %{player_id: player_id, position: %{x: px, y: py}, velocity: %{x: vx, y: vy}}
     broadcast_from socket, "new_player_joined", new_player
@@ -33,7 +44,7 @@ defmodule WoolenSocketsWeb.RoomChannel do
   def terminate(_reason, socket) do
     player_id = socket.assigns[:player_id]
 
-    WoolenSockets.GameState.remove_player(%{player_id: player_id})
+    WoolenSockets.GameState.remove_player(player_id)
     broadcast_from socket, "player_left", %{player_id: player_id}
 
     {:noreply, socket}
