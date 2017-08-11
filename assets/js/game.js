@@ -5,8 +5,6 @@ window.onload = function() {
     var player
     var player_id
 
-    var cursors
-
     var enemies
 
     var other_players = []
@@ -30,9 +28,6 @@ window.onload = function() {
 
         // start physics used for storing sheep velocity
         game.physics.startSystem(Phaser.Physics.ARCADE)
-
-        // enable keyboard control via arrow keys
-        cursors = game.input.keyboard.createCursorKeys()
 
         // limit to one pointer object
         game.input.maxPointers = 1
@@ -63,21 +58,6 @@ window.onload = function() {
 
         if (game.physics.arcade.distanceToPointer(player) > 10) {
           game.physics.arcade.moveToPointer(player, 300)
-        }
-
-        // set velocity based on keyboard input
-        if (cursors.left.isDown) {
-          player.body.velocity.x = -300
-        }
-        else if (cursors.right.isDown) {
-          player.body.velocity.x = 300
-        }
-
-        if (cursors.up.isDown) {
-          player.body.velocity.y = -300
-        }
-        else if (cursors.down.isDown) {
-          player.body.velocity.y = 300
         }
 
         // make sprite face correct direction
