@@ -44,7 +44,7 @@ defmodule WoolenSocketsWeb.RoomChannel do
     player_id = socket.assigns[:player_id]
 
     WoolenSockets.GameState.remove_player(player_id)
-    broadcast_from socket, "player_left", %{player_id: player_id}
+    broadcast_from socket, "player_left", player_id
 
     {:noreply, socket}
   end

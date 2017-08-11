@@ -138,15 +138,20 @@ window.onload = function() {
     })
 
     // remove a player when they leave
-    channel.on("player_left", payload => {
+    channel.on("player_left", player_id => {
+      remove_from_game(player_id)
+    })
 
-      other_players = other_players.filter(function( player ) {
-        if (player.player_id == payload.player_id){
+    // remove from phaser and from other_players array
+    function remove_from_game (player_id) {
+
+      other_players = other_players.filter(function(player) {
+        if (player.player_id == player_id){
           player.game_object.destroy()
         }
-        return player.player_id !== payload.player_id
+        return player.player_id !== player_id
       })
 
-    })
+    }
 
 }
