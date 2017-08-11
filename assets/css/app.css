@@ -1,1 +1,9 @@
 /* This file is for your main application css. */
+
+#phaser-game canvas {
+  margin:auto;
+}
+
+body {
+  background-color: black;
+}
