@@ -2,7 +2,7 @@ defmodule WoolenSocketsWeb.UserSocket do
   use Phoenix.Socket
 
   ## Channels
-  # channel "room:*", WoolenSocketsWeb.RoomChannel
+  channel "room:*", WoolenSocketsWeb.RoomChannel
 
   ## Transports
   transport :websocket, Phoenix.Transports.WebSocket
