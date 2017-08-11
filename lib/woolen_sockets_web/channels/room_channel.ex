@@ -30,8 +30,7 @@ defmodule WoolenSocketsWeb.RoomChannel do
 
     WoolenSockets.GameState.add_player(player)
 
-    new_player = %{player_id: player_id, position: %{x: px, y: py}, velocity: %{x: vx, y: vy}}
-    broadcast_from socket, "new_player_joined", new_player
+    broadcast_from socket, "new_player_joined", player
 
     world = WoolenSockets.GameState.get_world
     push socket, "hello_world", world
