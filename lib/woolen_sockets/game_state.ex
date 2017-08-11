@@ -1,7 +1,7 @@
 defmodule WoolenSockets.GameState do
 
   def start_link do
-    initial_world = %{ players: %{} }
+    initial_world = %World{}
 
     Agent.start_link(fn -> initial_world end, name: __MODULE__)
   end
@@ -10,7 +10,7 @@ defmodule WoolenSockets.GameState do
 
   def add_player(%{player_id: player_id}) do
     Agent.update(__MODULE__, fn world ->
-      put_in(world, [:players, to_string(player_id)], %{position: %{}, velocity: %{}})
+      World.add_player(world, %Player{id: player_id})
     end)
   end
 
@@ -18,9 +18,7 @@ defmodule WoolenSockets.GameState do
 
   def remove_player(%{player_id: player_id}) do
     Agent.update(__MODULE__, fn world ->
-      update_in(world, [:players], fn players ->
-        Map.delete(players, to_string(player_id))
-      end)
+      World.remove_player(world, player_id)
     end)
   end
 
@@ -28,9 +26,7 @@ defmodule WoolenSockets.GameState do
 
   def update_player(%{player_id: player_id, position: position, velocity: velocity}) do
     Agent.update(__MODULE__, fn world ->
-      world
-      |> put_in([:players, to_string(player_id), :position], position)
-      |> put_in([:players, to_string(player_id), :velocity], velocity)
+      World.update_player(world, %Player{id: player_id, position: position, velocity: velocity})
     end)
   end
 
