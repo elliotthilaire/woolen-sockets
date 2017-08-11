@@ -43,10 +43,7 @@ window.onload = function() {
         // create a random number for id
         player_id = Math.floor(Math.random() * 1000)
 
-        channel.push("im_new_here", { player_id: player_id,
-                                       position: { x: player.x, y: player.y },
-                                       velocity: { x: player.body.velocity.x, y: player.body.velocity.y }
-                                    })
+        channel.push("im_new_here", serialize_player_for_channel(player_id, player))
 
     }
 
@@ -71,14 +68,12 @@ window.onload = function() {
         if (player_id in world_state.players) {
           if (world_state.players[player_id].position.x != player.x ||
                   world_state.players[player_id].position.y != player.y ) {
-            channel.push("new_position", { player_id: player_id,
-                                           position: { x: player.x, y: player.y },
-                                           velocity: { x: player.body.velocity.x, y: player.body.velocity.y }
-                                         })
+            channel.push("new_position", serialize_player_for_channel(player_id, player))
           }
         }
 
     }
+
 
     channel.on("update_world", payload => {
 
@@ -152,6 +147,14 @@ window.onload = function() {
         return player.player_id !== player_id
       })
 
+    }
+
+    function serialize_player_for_channel(player_id, player) {
+      return {
+        player_id: player_id,
+        position: { x: player.x, y: player.y },
+        velocity: { x: player.body.velocity.x, y: player.body.velocity.y }
+      }
     }
 
 }
