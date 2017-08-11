@@ -57,6 +57,7 @@ exports.config = {
   },
 
   npm: {
+    static: ['node_modules/phaser-ce/build/phaser.js'],
     enabled: true
   }
 };
