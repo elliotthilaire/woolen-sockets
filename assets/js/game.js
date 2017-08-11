@@ -1,6 +1,6 @@
 window.onload = function() {
 
-    var game = new Phaser.Game(800, 600, Phaser.AUTO, 'phaser-game', { preload: preload, create: create, update: update });
+    var game = new Phaser.Game(800, 600, Phaser.AUTO, 'phaser-game', { preload: preload, create: create, update: update })
 
     var player
     var player_id
@@ -18,18 +18,18 @@ window.onload = function() {
         game.load.image('field', 'images/field.jpg')
 
         // show all on page without scroll bar
-        game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
-        game.scale.windowConstraints.bottom = "visual";
+        game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL
+        game.scale.windowConstraints.bottom = "visual"
 
     }
 
     function create () {
 
         // add background
-        game.add.sprite(0, 0, 'field');
+        game.add.sprite(0, 0, 'field')
 
         // start physics used for storing sheep velocity
-        game.physics.startSystem(Phaser.Physics.ARCADE);
+        game.physics.startSystem(Phaser.Physics.ARCADE)
 
         // enable keyboard control via arrow keys
         cursors = game.input.keyboard.createCursorKeys()
@@ -41,9 +41,9 @@ window.onload = function() {
         enemies = game.add.group()
 
         // add player after enemy so it displays on top
-        player = game.add.sprite(game.world.centerX, game.world.centerY, 'sheep_1');
-        player.anchor.setTo(0.5, 0.5);
-        game.physics.enable(player, Phaser.Physics.ARCADE);
+        player = game.add.sprite(game.world.centerX, game.world.centerY, 'sheep_1')
+        player.anchor.setTo(0.5, 0.5)
+        game.physics.enable(player, Phaser.Physics.ARCADE)
 
         // create a random number for id
         player_id = Math.floor(Math.random() * 1000)
@@ -134,7 +134,7 @@ window.onload = function() {
 
       var new_player = game.add.sprite(position.x, position.y, 'sheep_1')
       new_player.anchor.setTo(0.5, 0.5)
-      game.physics.enable(new_player, Phaser.Physics.ARCADE);
+      game.physics.enable(new_player, Phaser.Physics.ARCADE)
 
       other_players.push({player_id: other_player_id, game_object: new_player})
 
@@ -147,8 +147,8 @@ window.onload = function() {
         if (other_player_id == player_id) { return }
 
         var new_player = game.add.sprite(payload.players[other_player_id].position.x, payload.players[other_player_id].position.y, 'sheep_1')
-        new_player.anchor.setTo(0.5, 0.5);
-        game.physics.enable(new_player, Phaser.Physics.ARCADE);
+        new_player.anchor.setTo(0.5, 0.5)
+        game.physics.enable(new_player, Phaser.Physics.ARCADE)
 
         enemies.add(new_player)
 
@@ -164,9 +164,9 @@ window.onload = function() {
         if (player.player_id == payload.player_id){
           player.game_object.destroy()
         }
-        return player.player_id !== payload.player_id;
-      });
+        return player.player_id !== payload.player_id
+      })
 
     })
 
-};
+}
