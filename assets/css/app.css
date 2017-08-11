@@ -7,3 +7,9 @@
 body {
   background-color: black;
 }
+
+p {
+  text-align: center;
+  color: #A4A4A4 ;
+  line-height: 0.1em;
+}
