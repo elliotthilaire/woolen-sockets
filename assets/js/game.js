@@ -12,6 +12,7 @@ window.onload = function() {
 
     function preload () {
 
+        // load images
         game.load.image('sheep_1', 'images/sheep_1.png')
         game.load.image('field', 'images/field.jpg')
 
@@ -32,7 +33,7 @@ window.onload = function() {
         // limit to one pointer object
         game.input.maxPointers = 1
 
-        // create enemies groups before player
+        // create enemies group before player
         enemies = game.add.group()
 
         // add player after enemy so it displays on top
@@ -49,7 +50,7 @@ window.onload = function() {
 
     function update () {
 
-        // reset velocity to zero by override in based on input
+        // reset velocity to zero to be overridden from input
         player.body.velocity.x = 0
         player.body.velocity.y = 0
 
