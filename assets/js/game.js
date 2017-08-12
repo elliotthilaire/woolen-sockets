@@ -150,12 +150,14 @@ window.onload = function() {
 
     }
 
-    function serialize_player_for_channel(player_id, player) {
-      return {
-        player_id: player_id,
-        position: { x: player.x, y: player.y },
-        velocity: { x: player.body.velocity.x, y: player.body.velocity.y }
-      }
-    }
+}
+
+function serialize_player_for_channel (player_id, player) {
+  return {
+    player_id: player_id,
+    position: { x: player.x, y: player.y },
+    velocity: { x: player.body.velocity.x, y: player.body.velocity.y }
+  }
+}
 
 }
