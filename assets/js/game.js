@@ -58,12 +58,7 @@ window.onload = function() {
           game.physics.arcade.moveToPointer(player, 300)
         }
 
-        // make sprite face correct direction
-        if (player.body.velocity.x > 0) {
-          player.scale.x = 1
-        } else if (player.body.velocity.x < 0) {
-          player.scale.x = -1
-        }
+        make_player_face_correct_direction(player)
 
         // send details to game server
         if (player_id in world_state.players) {
@@ -92,11 +87,7 @@ window.onload = function() {
           other_player.game_object.body.velocity.x = payload.players[other_player_id].velocity.x
           other_player.game_object.body.velocity.y = payload.players[other_player_id].velocity.y
 
-          if (other_player.game_object.body.velocity.x > 0) {
-            other_player.game_object.scale.x = 1
-          } else if (other_player.game_object.body.velocity.x < 0) {
-            other_player.game_object.scale.x = -1
-          }
+          make_player_face_correct_direction(other_player)
 
         }
       })
@@ -160,4 +151,10 @@ function serialize_player_for_channel (player_id, player) {
   }
 }
 
+function make_player_face_correct_direction (player) {
+  if (player.body.velocity.x > 0) {
+    player.scale.x = 1
+  } else if (player.body.velocity.x < 0) {
+    player.scale.x = -1
+  }
 }
