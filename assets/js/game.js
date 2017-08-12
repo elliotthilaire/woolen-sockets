@@ -50,10 +50,7 @@ window.onload = function() {
 
     function update () {
 
-        // reset velocity to zero to be overridden from input
-        player.body.velocity.x = 0
-        player.body.velocity.y = 0
-
+        // follow the cursor
         if (game.physics.arcade.distanceToPointer(player) > 10) {
           game.physics.arcade.moveToPointer(player, 300)
         }
