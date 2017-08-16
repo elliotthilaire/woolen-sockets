@@ -1,6 +1,7 @@
 # WoolenSockets
 
-A multiplayer sheep simulator
+https://woolen-sockets.herokuapp.com
+A multiplayer sheep simulator.
 
 To start your Phoenix server:
 
