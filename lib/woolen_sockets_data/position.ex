@@ -1,6 +1,6 @@
-defmodule WoolenSockets.Position do
+defmodule WoolenSocketsData.Position do
 
-  alias WoolenSockets.Position
+  alias WoolenSocketsData.Position
 
   defstruct [ :x, :y ]
 

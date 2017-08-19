@@ -1,6 +1,6 @@
-defmodule WoolenSockets.Velocity do
+defmodule WoolenSocketsData.Velocity do
 
-  alias WoolenSockets.Velocity
+  alias WoolenSocketsData.Velocity
 
   defstruct [ x: 0, y: 0 ]
 

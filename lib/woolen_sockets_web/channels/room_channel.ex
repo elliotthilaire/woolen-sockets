@@ -1,7 +1,9 @@
 defmodule WoolenSocketsWeb.RoomChannel do
   use Phoenix.Channel
 
-  alias WoolenSockets.{Player, Position, Velocity}
+  alias WoolenSockets.GameState
+  alias WoolenSocketsData.{Player, Position, Velocity}
+
 
   def join("room:lobby", _message, socket) do
     {:ok, socket}
@@ -18,7 +20,7 @@ defmodule WoolenSocketsWeb.RoomChannel do
       velocity: %Velocity{x: vx, y: vy}
     }
 
-    WoolenSockets.GameState.update_player(player)
+    GameState.update_player(player)
 
     {:noreply, socket}
   end
@@ -30,11 +32,11 @@ defmodule WoolenSocketsWeb.RoomChannel do
       velocity: %Velocity{x: vx, y: vy}
     }
 
-    WoolenSockets.GameState.add_player(player)
+    GameState.add_player(player)
 
     broadcast_from socket, "new_player_joined", player
 
-    world = WoolenSockets.GameState.get_world
+    world = GameState.get_world
     push socket, "hello_world", world
 
     socket = assign(socket, :player_id, player_id)
@@ -45,7 +47,7 @@ defmodule WoolenSocketsWeb.RoomChannel do
   def terminate(_reason, socket) do
     player_id = socket.assigns[:player_id]
 
-    WoolenSockets.GameState.remove_player(player_id)
+    GameState.remove_player(player_id)
     broadcast_from socket, "player_left", %{player_id: player_id}
 
     {:noreply, socket}

@@ -1,6 +1,6 @@
-defmodule WoolenSockets.WorldTransformer do
+defmodule WoolenSocketsData.WorldTransformer do
 
-  alias WoolenSockets.{World, Player}
+  alias WoolenSocketsData.{World, Player}
 
   @spec add_player(World.t, Player.t) :: World.t
   def add_player(world, player) do

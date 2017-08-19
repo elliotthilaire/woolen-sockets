@@ -2,18 +2,20 @@ defmodule WoolenSockets.WorldBroadcaster do
 
   use GenServer
 
+  alias WoolenSockets.GameState
+
   def start_link do
     GenServer.start_link(__MODULE__, %{}, name: __MODULE__)
   end
 
   def init(_args) do
-    world = WoolenSockets.GameState.get_world
+    world = GameState.get_world
     schedule_work()
     {:ok, world}
   end
 
   def handle_info(:work, existing_world) do
-    new_world = WoolenSockets.GameState.get_world
+    new_world = GameState.get_world
 
     unless Map.equal?(existing_world, new_world) do
       IO.inspect(new_world)

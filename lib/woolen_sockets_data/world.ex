@@ -1,6 +1,6 @@
-defmodule WoolenSockets.World do
+defmodule WoolenSocketsData.World do
 
-  alias WoolenSockets.World
+  alias WoolenSocketsData.World
 
   defstruct [ players: %{} ]
 
