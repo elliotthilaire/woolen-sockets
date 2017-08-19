@@ -1,4 +1,6 @@
-defmodule Player do
+defmodule WoolenSockets.Player do
+
+  alias WoolenSockets.{Player, Position, Velocity}
 
   @enforce_keys [ :id ]
 

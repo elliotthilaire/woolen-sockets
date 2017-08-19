@@ -1,6 +1,8 @@
 defmodule WoolenSocketsWeb.RoomChannel do
   use Phoenix.Channel
 
+  alias WoolenSockets.{Player, Position, Velocity}
+
   def join("room:lobby", _message, socket) do
     {:ok, socket}
   end

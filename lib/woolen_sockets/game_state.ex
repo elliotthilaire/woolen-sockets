@@ -1,6 +1,6 @@
 defmodule WoolenSockets.GameState do
 
-  alias WoolenSockets.WorldTransformer
+  alias WoolenSockets.{WorldTransformer, World, Player}
 
   def start_link do
     initial_world = %World{}
